@@ -183,7 +183,7 @@ function SubstanceView() {
 
   const toggle=(id:string)=>setSelected(s=>s.includes(id)?s.filter(x=>x!==id):[...s,id]);
   const allVisibleSelected=visible.length>0&&visible.every(r=>selected.includes(r.id));
-  const toggleAll=()=>setSelected(s=>allVisibleSelected?s.filter(id=>!visible.some(r=>r.id===id)):[...new Set([...s,...visible.map(r=>r.id)])]);
+  const toggleAll=()=>setSelected(s=>allVisibleSelected?s.filter(id=>!visible.some(r=>r.id===id)):Array.from(new Set(s.concat(visible.map(r=>r.id)))));
 
   const viewButton=(id:'all'|'review'|'expiring',label:string,count:number)=>(
     <button
