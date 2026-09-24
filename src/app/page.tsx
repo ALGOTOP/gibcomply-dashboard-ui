@@ -311,9 +311,6 @@ export default function Page() {
 
             <div className="flex items-center gap-2">
               <button className="hidden h-9 items-center gap-2 rounded-lg border border-[#dedee1] bg-white px-3 text-xs text-[#6e6e73] transition hover:bg-[#f7f7f8] md:flex"><Search className="h-4 w-4"/>Search sections…</button>
-              <button onClick={toggleTheme} aria-label={dark?'Switch to light mode':'Switch to dark mode'} title={dark?'Light mode':'Dark mode'} className="relative flex h-9 w-9 items-center justify-center rounded-full border border-[#dedee1] bg-white transition hover:bg-[#f7f7f8]">{dark?<Sun className="h-4 w-4"/>:<Moon className="h-4 w-4"/>}</button>
-              <button className="hidden h-9 items-center gap-2 rounded-lg border border-[#dedee1] bg-white px-3 text-xs font-medium transition hover:bg-[#f7f7f8] xl:flex"><Download className="h-4 w-4"/>Download pack</button>
-              <button className="hidden h-9 items-center gap-2 rounded-lg bg-[#17171b] px-3 text-xs font-medium text-white transition hover:bg-black xl:flex"><Plus className="h-4 w-4"/>Add deadline</button>
               <button aria-label="Notifications" className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-[#dedee1] bg-white transition hover:bg-[#f7f7f8]"><Bell className="h-4 w-4"/><span className="absolute -right-1 -top-1 rounded-full bg-[#b42318] px-1 text-[9px] font-semibold text-white">9+</span></button>
               <button className="flex h-9 items-center gap-2 rounded-lg border border-[#dedee1] bg-white px-2.5 text-xs font-medium transition hover:bg-[#f7f7f8]"><span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#ececee]">A</span><ChevronDown className={`h-3.5 w-3.5 ${secondary}`}/></button>
             </div>
