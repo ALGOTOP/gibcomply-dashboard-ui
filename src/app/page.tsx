@@ -5,8 +5,7 @@ import {
   LayoutDashboard, BadgeCheck, CalendarDays, Building2, ClipboardList, FileText,
   Settings, Bell, Search, ChevronDown, CheckCircle2, Clock3, AlertTriangle,
   ShieldCheck, PanelLeftClose, PanelLeftOpen, Menu, X, PoundSterling, Network,
-  FolderArchive, ListChecks, GitCompareArrows, ScanSearch, Library, MessageSquareText,
-  Moon, Sun, Download, Plus, ExternalLink,
+  FolderArchive, ListChecks, GitCompareArrows, ScanSearch, Library, MessageSquareText
 } from 'lucide-react';
 
 type Tab =
@@ -58,9 +57,9 @@ const suppliers = [
   ['KYC Bridge Ltd', 'Identity verification', 'Current', 'Low'],
 ];
 
-const surface = 'overflow-hidden rounded-xl border border-[#dedee1] bg-white dark:border-[#2c2e33] dark:bg-[#191a1d]';
-const secondary = 'text-[#6e6e73] dark:text-[#a3a5aa]';
-const divider = 'border-[#ececee] dark:border-[#2a2c30]';
+const surface = 'overflow-hidden rounded-xl border border-[#dedee1] bg-white';
+const secondary = 'text-[#6e6e73]';
+const divider = 'border-[#ececee]';
 
 function SectionTitle({ title, subtitle }: { title: string; subtitle: string }) {
   return (
@@ -77,7 +76,7 @@ function Panel({ title, children, action }: { title: string; children: ReactNode
       <div className={`flex items-center justify-between border-b px-5 py-4 ${divider}`}>
         <h3 className="text-sm font-semibold">{title}</h3>
         {action && (
-          <button className="rounded-lg bg-[#17171b] px-3 py-2 text-xs font-medium text-white transition hover:bg-black dark:bg-white dark:text-[#141416] dark:hover:bg-[#efeff2]">
+          <button className="rounded-lg bg-[#0071e3] px-3 py-2 text-xs font-medium text-white transition hover:bg-[#0066cc]">
             {action}
           </button>
         )}
@@ -90,7 +89,7 @@ function Panel({ title, children, action }: { title: string; children: ReactNode
 function DashboardView() {
   return (
     <>
-      <SectionTitle subtitle="Alam" title="Compliance dashboard" />
+      <SectionTitle subtitle="Acme Interactive Ltd" title="Welcome, Alexandra" />
       <section className={`mb-5 ${surface}`}>
         <div className="flex flex-col gap-5 p-5 md:flex-row md:items-end md:justify-between">
           <div>
@@ -101,11 +100,11 @@ function DashboardView() {
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#edf8f0] px-2.5 py-1 text-xs font-medium text-[#137333] dark:bg-[#173321] dark:text-[#7cd99a]"><CheckCircle2 className="h-3.5 w-3.5"/>Licence current</span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#fff7e6] px-2.5 py-1 text-xs font-medium text-[#9a6700] dark:bg-[#3a2d12] dark:text-[#f0c36d]"><Clock3 className="h-3.5 w-3.5"/>2 actions due</span>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#edf8f0] px-2.5 py-1 text-xs font-medium text-[#137333]"><CheckCircle2 className="h-3.5 w-3.5"/>Licence current</span>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#fff7e6] px-2.5 py-1 text-xs font-medium text-[#9a6700]"><Clock3 className="h-3.5 w-3.5"/>2 actions due</span>
           </div>
         </div>
-        <div className="h-1 bg-[#eeeeef] dark:bg-[#292b2f]"><div className="h-full w-[82%] bg-[#0071e3]"/></div>
+        <div className="h-1 bg-[#eeeeef]"><div className="h-full w-[82%] bg-[#0071e3]"/></div>
       </section>
 
       <div className="mb-5 grid grid-cols-2 gap-3 xl:grid-cols-4">
@@ -139,7 +138,7 @@ function DashboardView() {
             {[['Alexandra Reed','Director'],['Marcus Cole','MLRO'],['Sofia Bennett','Compliance Officer']].map(([name,role]) => (
               <div key={name} className={`flex items-center justify-between border-b px-5 py-3.5 last:border-0 ${divider}`}>
                 <div><p className="text-sm font-medium">{name}</p><p className={`text-xs ${secondary}`}>{role}</p></div>
-                <span className="text-xs font-medium text-[#137333] dark:text-[#7cd99a]">Current</span>
+                <span className="text-xs font-medium text-[#137333]">Current</span>
               </div>
             ))}
           </Panel>
@@ -173,9 +172,9 @@ function SubstanceView() {
   return (
     <>
       <SectionTitle subtitle="Records of presence in Gibraltar" title="Substance evidence"/>
-      <div className={`mb-5 flex flex-col gap-3 rounded-xl border p-4 sm:flex-row sm:items-center sm:justify-between ${divider} bg-white dark:bg-[#191a1d]`}>
+      <div className={`mb-5 flex flex-col gap-3 rounded-xl border p-4 sm:flex-row sm:items-center sm:justify-between ${divider} bg-white`}>
         <div><p className="text-sm font-medium">Two-step sign-in is not set up</p><p className={`mt-0.5 text-xs ${secondary}`}>Add a second step to sign-in for stronger workspace security.</p></div>
-        <button className="shrink-0 rounded-lg border border-[#dedee1] px-3 py-2 text-xs font-medium dark:border-[#34363b]">Set it up</button>
+        <button className="shrink-0 rounded-lg border border-[#dedee1] px-3 py-2 text-xs font-medium">Set it up</button>
       </div>
       <Panel title="Documents" action="Add evidence"><DataTable headers={['Document','Category','File','Review status']} rows={rows}/></Panel>
     </>
@@ -215,23 +214,23 @@ function SanctionsView() {
 }
 
 function TemplatesView() {
-  return <><SectionTitle subtitle="Reusable compliance documents" title="Template library"/><div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">{['Board meeting minutes','Supplier due diligence','AML annual review','Regulatory notification','Quarterly return checklist','Substance evidence request'].map(name=><div key={name} className={`p-5 ${surface}`}><FileText className={`mb-4 h-5 w-5 ${secondary}`}/><h3 className="text-sm font-semibold">{name}</h3><p className={`mt-1 text-xs ${secondary}`}>Standard workspace template</p><button className="mt-4 text-xs font-medium text-[#0066cc] dark:text-[#70b7ff]">Open template</button></div>)}</div></>;
+  return <><SectionTitle subtitle="Reusable compliance documents" title="Template library"/><div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">{['Board meeting minutes','Supplier due diligence','AML annual review','Regulatory notification','Quarterly return checklist','Substance evidence request'].map(name=><div key={name} className={`p-5 ${surface}`}><FileText className={`mb-4 h-5 w-5 ${secondary}`}/><h3 className="text-sm font-semibold">{name}</h3><p className={`mt-1 text-xs ${secondary}`}>Standard workspace template</p><button className="mt-4 text-xs font-medium text-[#0066cc]">Open template</button></div>)}</div></>;
 }
 
 function AssistantView() {
-  return <><SectionTitle subtitle="Workspace assistance" title="Assistant"/><div className={`mx-auto max-w-3xl p-6 md:p-8 ${surface}`}><MessageSquareText className="h-6 w-6"/><h3 className="mt-4 text-lg font-semibold">Ask about your compliance workspace</h3><p className={`mt-2 max-w-xl text-sm ${secondary}`}>Use the assistant to navigate records, deadlines and obligations in this frontend preview.</p><div className={`mt-6 flex items-center gap-2 rounded-xl border p-2 ${divider}`}><input className="min-w-0 flex-1 bg-transparent px-3 py-2 text-sm outline-none" placeholder="Ask a question…"/><button className="rounded-lg bg-[#17171b] px-4 py-2 text-xs font-medium text-white dark:bg-white dark:text-black">Send</button></div></div></>;
+  return <><SectionTitle subtitle="Workspace assistance" title="Assistant"/><div className={`mx-auto max-w-3xl p-6 md:p-8 ${surface}`}><MessageSquareText className="h-6 w-6"/><h3 className="mt-4 text-lg font-semibold">Ask about your compliance workspace</h3><p className={`mt-2 max-w-xl text-sm ${secondary}`}>Use the assistant to navigate records, deadlines and obligations in this frontend preview.</p><div className={`mt-6 flex items-center gap-2 rounded-xl border p-2 ${divider}`}><input className="min-w-0 flex-1 bg-transparent px-3 py-2 text-sm outline-none" placeholder="Ask a question…"/><button className="rounded-lg bg-[#0071e3] px-4 py-2 text-xs font-medium text-white hover:bg-[#0066cc]">Send</button></div></div></>;
 }
 
 function SettingsView() {
-  return <><SectionTitle subtitle="Workspace configuration" title="Settings"/><div className="grid gap-5 lg:grid-cols-2"><Panel title="Workspace"><div className="space-y-4 p-5"><Field label="Operator name" value="Alam"/><Field label="Licence reference" value="RGL-114"/></div></Panel><Panel title="Security"><div className="p-5"><div className="flex items-center gap-3"><ShieldCheck className="h-5 w-5 text-[#137333] dark:text-[#7cd99a]"/><div><p className="text-sm font-medium">Two-factor authentication</p><p className={`text-xs ${secondary}`}>Not yet configured for this preview account</p></div></div></div></Panel></div></>;
+  return <><SectionTitle subtitle="Workspace configuration" title="Settings"/><div className="grid gap-5 lg:grid-cols-2"><Panel title="Workspace"><div className="space-y-4 p-5"><Field label="Operator name" value="Alam"/><Field label="Licence reference" value="RGL-114"/></div></Panel><Panel title="Security"><div className="p-5"><div className="flex items-center gap-3"><ShieldCheck className="h-5 w-5 text-[#137333]"/><div><p className="text-sm font-medium">Two-factor authentication</p><p className={`text-xs ${secondary}`}>Not yet configured for this preview account</p></div></div></div></Panel></div></>;
 }
 
 function Field({label,value}:{label:string;value:string}) {
-  return <label className={`block text-xs ${secondary}`}>{label}<input className="mt-1 h-10 w-full rounded-lg border border-[#dedee1] bg-white px-3 text-sm text-[#1d1d1f] outline-none focus:border-[#0071e3] dark:border-[#34363b] dark:bg-[#121316] dark:text-white" defaultValue={value}/></label>;
+  return <label className={`block text-xs ${secondary}`}>{label}<input className="mt-1 h-10 w-full rounded-lg border border-[#dedee1] bg-white px-3 text-sm text-[#1d1d1f] outline-none focus:border-[#0071e3]" defaultValue={value}/></label>;
 }
 
 function DataTable({ headers, rows }: { headers: string[]; rows: string[][] }) {
-  return <div className="overflow-x-auto"><table className="w-full min-w-[680px] text-left"><thead className="bg-[#fafafa] text-[11px] uppercase tracking-wide text-[#76767b] dark:bg-[#151619] dark:text-[#999ca2]"><tr>{headers.map(h=><th key={h} className="px-5 py-3 font-medium">{h}</th>)}</tr></thead><tbody>{rows.map((row,i)=><tr key={i} className={`border-t ${divider}`}>{row.map((cell,j)=><td key={j} className={`px-5 py-4 text-sm ${j===0?'font-medium':secondary}`}>{cell}</td>)}</tr>)}</tbody></table></div>;
+  return <div className="overflow-x-auto"><table className="w-full min-w-[680px] text-left"><thead className="bg-[#fafafa] text-[11px] uppercase tracking-wide text-[#76767b]"><tr>{headers.map(h=><th key={h} className="px-5 py-3 font-medium">{h}</th>)}</tr></thead><tbody>{rows.map((row,i)=><tr key={i} className={`border-t ${divider}`}>{row.map((cell,j)=><td key={j} className={`px-5 py-4 text-sm ${j===0?'font-medium':secondary}`}>{cell}</td>)}</tr>)}</tbody></table></div>;
 }
 
 function Row({left,right}:{left:string;right:string}) {
@@ -241,24 +240,24 @@ function Row({left,right}:{left:string;right:string}) {
 function Sidebar({ activeTab, setActiveTab, onClose, onCollapse, mobile=false }: { activeTab: Tab; setActiveTab: (tab: Tab)=>void; onClose?:()=>void; onCollapse?:()=>void; mobile?:boolean }) {
   const go = (tab:Tab) => { setActiveTab(tab); onClose?.(); };
   return (
-    <aside className={`${mobile?'h-full w-[280px]':'sticky top-0 h-screen w-[280px] shrink-0'} flex flex-col bg-[#191919] text-white dark:bg-[#0d0e10]`}>
-      <div className="flex h-16 items-center border-b border-white/10 px-4">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 text-sm font-semibold">G</div>
-        <div className="ml-3 min-w-0 flex-1"><div className="text-[15px] font-semibold">GibComply</div><div className="truncate text-[11px] text-white/50">Alam</div></div>
-        {mobile ? <button onClick={onClose} aria-label="Close navigation" className="rounded-lg p-2 text-white/60 transition hover:bg-white/10 hover:text-white"><X className="h-4 w-4"/></button> : <button onClick={onCollapse} aria-label="Collapse sidebar" title="Collapse sidebar" className="rounded-lg p-2 text-white/60 transition hover:bg-white/10 hover:text-white"><PanelLeftClose className="h-4 w-4"/></button>}
+    <aside className={`${mobile?'h-full w-[248px]':'sticky top-0 h-screen w-[280px] shrink-0'} flex flex-col border-r border-[#e5e5e7] bg-white text-[#1d1d1f]`}>
+      <div className="flex h-16 items-center border-b border-[#e5e5e7] px-4">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1d1d1f] text-sm font-semibold text-white">G</div>
+        <div className="ml-3 min-w-0 flex-1"><div className="text-[15px] font-semibold">GibComply</div><div className="truncate text-[11px] text-[#6e6e73]">Acme Interactive Ltd</div></div>
+        {mobile ? <button onClick={onClose} aria-label="Close navigation" className="rounded-lg p-2 text-[#6e6e73] transition hover:bg-[#f7f7f8] hover:text-[#1d1d1f]"><X className="h-4 w-4"/></button> : <button onClick={onCollapse} aria-label="Collapse sidebar" title="Collapse sidebar" className="rounded-lg p-2 text-[#6e6e73] transition hover:bg-[#f7f7f8] hover:text-[#1d1d1f]"><PanelLeftClose className="h-4 w-4"/></button>}
       </div>
 
       <nav className="flex-1 overflow-y-auto px-3 py-4">
         <div className="space-y-0.5">
           {nav.map(({label,icon:Icon,badge}) => {
             const active=activeTab===label;
-            return <button key={label} onClick={()=>go(label)} className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-[14px] transition ${active?'bg-white/10 font-medium text-white':'text-white/72 hover:bg-white/[0.06] hover:text-white'}`}><Icon className="h-[17px] w-[17px] shrink-0"/><span className="min-w-0 flex-1 truncate">{label}</span>{badge&&<span className="rounded-full bg-[#b42318] px-1.5 py-0.5 text-[10px] font-semibold text-white">{badge}</span>}</button>
+            return <button key={label} onClick={()=>go(label)} className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-[14px] transition ${active?'bg-[#f1f1f3] font-medium text-[#1d1d1f]':'text-[#5f6368] hover:bg-[#f7f7f8] hover:text-[#1d1d1f]'}`}><Icon className="h-[17px] w-[17px] shrink-0"/><span className="min-w-0 flex-1 truncate">{label}</span>{badge&&<span className="rounded-full bg-[#fff1f0] px-1.5 py-0.5 text-[10px] font-semibold text-[#b42318]">{badge}</span>}</button>
           })}
         </div>
       </nav>
 
-      <div className="border-t border-white/10 p-3">
-        <button onClick={()=>go('Settings')} className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-[14px] transition ${activeTab==='Settings'?'bg-white/10 font-medium text-white':'text-white/72 hover:bg-white/[0.06] hover:text-white'}`}><Settings className="h-[17px] w-[17px]"/>Settings</button>
+      <div className="border-t border-[#e5e5e7] p-3">
+        <button onClick={()=>go('Settings')} className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-[14px] transition ${activeTab==='Settings'?'bg-[#f1f1f3] font-medium text-[#1d1d1f]':'text-[#5f6368] hover:bg-[#f7f7f8] hover:text-[#1d1d1f]'}`}><Settings className="h-[17px] w-[17px]"/>Settings</button>
       </div>
     </aside>
   );
@@ -268,17 +267,11 @@ export default function Page() {
   const [activeTab,setActiveTab]=useState<Tab>('Dashboard');
   const [sidebarCollapsed,setSidebarCollapsed]=useState(false);
   const [mobileOpen,setMobileOpen]=useState(false);
-  const [dark,setDark]=useState(false);
-
+  
   useEffect(()=>{
-    const saved=window.localStorage.getItem('gibcomply-dashboard-theme');
-    setDark(saved ? saved==='dark' : window.matchMedia('(prefers-color-scheme: dark)').matches);
     setSidebarCollapsed(window.localStorage.getItem('gibcomply-dashboard-sidebar')==='collapsed');
   },[]);
 
-  const toggleTheme=()=>{
-    setDark(v=>{const next=!v; window.localStorage.setItem('gibcomply-dashboard-theme',next?'dark':'light'); return next;});
-  };
   const toggleSidebar=()=>{
     setSidebarCollapsed(v=>{const next=!v; window.localStorage.setItem('gibcomply-dashboard-sidebar',next?'collapsed':'open'); return next;});
   };
@@ -302,27 +295,27 @@ export default function Page() {
   };
 
   return (
-    <main className={`${dark?'dark':''} min-h-screen bg-[#f5f5f7] text-[#1d1d1f] dark:bg-[#111214] dark:text-[#f5f5f7]`}>
+    <main className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f]">
       <div className="flex min-h-screen">
         {!sidebarCollapsed && <div className="hidden lg:block"><Sidebar activeTab={activeTab} setActiveTab={setActiveTab} onCollapse={toggleSidebar}/></div>}
 
         {mobileOpen && <div className="fixed inset-0 z-50 lg:hidden"><button aria-label="Close navigation overlay" onClick={()=>setMobileOpen(false)} className="absolute inset-0 bg-black/45 backdrop-blur-[2px]"/><div className="relative h-full w-fit shadow-2xl"><Sidebar mobile activeTab={activeTab} setActiveTab={setActiveTab} onClose={()=>setMobileOpen(false)}/></div></div>}
 
         <section className="min-w-0 flex-1">
-          <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-[#e5e5e7] bg-white/95 px-4 backdrop-blur md:px-6 dark:border-[#2b2d31] dark:bg-[#151619]/95">
+          <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-[#e5e5e7] bg-white/95 px-4 backdrop-blur md:px-6">
             <div className="flex min-w-0 items-center gap-2">
-              <button onClick={()=>setMobileOpen(true)} className="rounded-lg p-2 transition hover:bg-black/5 lg:hidden dark:hover:bg-white/10" aria-label="Open navigation"><Menu className="h-5 w-5"/></button>
-              {sidebarCollapsed && <button onClick={toggleSidebar} className="hidden rounded-lg p-2 transition hover:bg-black/5 lg:inline-flex dark:hover:bg-white/10" aria-label="Show sidebar" title="Show sidebar"><PanelLeftOpen className="h-5 w-5"/></button>}
+              <button onClick={()=>setMobileOpen(true)} className="rounded-lg p-2 transition hover:bg-black/5 lg:hidden" aria-label="Open navigation"><Menu className="h-5 w-5"/></button>
+              {sidebarCollapsed && <button onClick={toggleSidebar} className="hidden rounded-lg p-2 transition hover:bg-black/5 lg:inline-flex" aria-label="Show sidebar" title="Show sidebar"><PanelLeftOpen className="h-5 w-5"/></button>}
               <div className="min-w-0"><h1 className="truncate text-sm font-semibold">{activeTab}</h1><p className={`text-[11px] ${secondary}`}>RGL-114</p></div>
             </div>
 
             <div className="flex items-center gap-2">
-              <button className="hidden h-9 items-center gap-2 rounded-lg border border-[#dedee1] bg-white px-3 text-xs text-[#6e6e73] transition hover:bg-[#f7f7f8] md:flex dark:border-[#34363b] dark:bg-[#191a1d] dark:text-[#b4b6bb] dark:hover:bg-[#222428]"><Search className="h-4 w-4"/>Search sections…</button>
-              <button onClick={toggleTheme} aria-label={dark?'Switch to light mode':'Switch to dark mode'} title={dark?'Light mode':'Dark mode'} className="relative flex h-9 w-9 items-center justify-center rounded-full border border-[#dedee1] bg-white transition hover:bg-[#f7f7f8] dark:border-[#34363b] dark:bg-[#191a1d] dark:hover:bg-[#222428]">{dark?<Sun className="h-4 w-4"/>:<Moon className="h-4 w-4"/>}</button>
-              <button className="hidden h-9 items-center gap-2 rounded-lg border border-[#dedee1] bg-white px-3 text-xs font-medium transition hover:bg-[#f7f7f8] xl:flex dark:border-[#34363b] dark:bg-[#191a1d] dark:hover:bg-[#222428]"><Download className="h-4 w-4"/>Download pack</button>
-              <button className="hidden h-9 items-center gap-2 rounded-lg bg-[#17171b] px-3 text-xs font-medium text-white transition hover:bg-black xl:flex dark:bg-white dark:text-black"><Plus className="h-4 w-4"/>Add deadline</button>
-              <button aria-label="Notifications" className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-[#dedee1] bg-white transition hover:bg-[#f7f7f8] dark:border-[#34363b] dark:bg-[#191a1d] dark:hover:bg-[#222428]"><Bell className="h-4 w-4"/><span className="absolute -right-1 -top-1 rounded-full bg-[#b42318] px-1 text-[9px] font-semibold text-white">9+</span></button>
-              <button className="flex h-9 items-center gap-2 rounded-lg border border-[#dedee1] bg-white px-2.5 text-xs font-medium transition hover:bg-[#f7f7f8] dark:border-[#34363b] dark:bg-[#191a1d] dark:hover:bg-[#222428]"><span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#ececee] dark:bg-[#303238]">A</span><ChevronDown className={`h-3.5 w-3.5 ${secondary}`}/></button>
+              <button className="hidden h-9 items-center gap-2 rounded-lg border border-[#dedee1] bg-white px-3 text-xs text-[#6e6e73] transition hover:bg-[#f7f7f8] md:flex"><Search className="h-4 w-4"/>Search sections…</button>
+              <button onClick={toggleTheme} aria-label={dark?'Switch to light mode':'Switch to dark mode'} title={dark?'Light mode':'Dark mode'} className="relative flex h-9 w-9 items-center justify-center rounded-full border border-[#dedee1] bg-white transition hover:bg-[#f7f7f8]">{dark?<Sun className="h-4 w-4"/>:<Moon className="h-4 w-4"/>}</button>
+              <button className="hidden h-9 items-center gap-2 rounded-lg border border-[#dedee1] bg-white px-3 text-xs font-medium transition hover:bg-[#f7f7f8] xl:flex"><Download className="h-4 w-4"/>Download pack</button>
+              <button className="hidden h-9 items-center gap-2 rounded-lg bg-[#17171b] px-3 text-xs font-medium text-white transition hover:bg-black xl:flex"><Plus className="h-4 w-4"/>Add deadline</button>
+              <button aria-label="Notifications" className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-[#dedee1] bg-white transition hover:bg-[#f7f7f8]"><Bell className="h-4 w-4"/><span className="absolute -right-1 -top-1 rounded-full bg-[#b42318] px-1 text-[9px] font-semibold text-white">9+</span></button>
+              <button className="flex h-9 items-center gap-2 rounded-lg border border-[#dedee1] bg-white px-2.5 text-xs font-medium transition hover:bg-[#f7f7f8]"><span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#ececee]">A</span><ChevronDown className={`h-3.5 w-3.5 ${secondary}`}/></button>
             </div>
           </header>
 
