@@ -5,7 +5,8 @@ import {
   LayoutDashboard, BadgeCheck, CalendarDays, Building2, ClipboardList, FileText,
   Settings, Bell, Search, ChevronDown, CheckCircle2, Clock3, AlertTriangle,
   ShieldCheck, PanelLeftClose, PanelLeftOpen, Menu, X, PoundSterling, Network,
-  FolderArchive, ListChecks, GitCompareArrows, ScanSearch, Library, MessageSquareText
+  FolderArchive, ListChecks, GitCompareArrows, ScanSearch, Library, MessageSquareText,
+  Filter, ArrowUpDown, MoreHorizontal, Check, Upload, ChevronRight
 } from 'lucide-react';
 
 type Tab =
