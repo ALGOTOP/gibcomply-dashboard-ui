@@ -189,122 +189,90 @@ function SubstanceView() {
   const viewButton=(id:'all'|'review'|'expiring',label:string,count:number)=>(
     <button
       onClick={()=>setView(id)}
-      className={`group relative flex items-center gap-2 py-3 text-sm font-medium transition ${view===id?'text-[#111214]':'text-[#7a7d84] hover:text-[#111214]'}`}
+      className={`relative px-1 pb-3 text-sm font-medium transition ${view===id?'text-[#1d1d1f]':'text-[#6e6e73] hover:text-[#1d1d1f]'}`}
     >
-      <span>{label}</span>
-      <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium transition ${view===id?'bg-[#111214] text-white':'bg-[#f0f0f2] text-[#7a7d84] group-hover:bg-[#e7e7e9]'}`}>{count}</span>
-      {view===id&&<span className="absolute inset-x-0 -bottom-px h-[2px] bg-[#111214]"/>}
+      {label} <span className="ml-1 text-xs font-normal text-[#8a8a8f]">{count}</span>
+      {view===id&&<span className="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-[#1d1d1f]"/>}
     </button>
   );
 
   return (
-    <div className="mx-auto max-w-[1380px]">
-      <section className="mb-8 border-b border-[#dcdde1] pb-8">
-        <div className="mb-5 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#8a8d94]">
-          <span>Compliance</span><ChevronRight className="h-3.5 w-3.5"/><span>Evidence</span>
-        </div>
-
-        <div className="grid gap-8 xl:grid-cols-[minmax(0,1.45fr)_minmax(320px,.55fr)] xl:items-end">
-          <div>
-            <h2 className="max-w-[880px] text-[clamp(38px,5vw,68px)] font-semibold leading-[0.98] tracking-[-0.055em] text-[#111214]">
-              Substance evidence,
-              <span className="block text-[#7c7f86]">made review-ready.</span>
-            </h2>
-            <p className="mt-5 max-w-2xl text-[15px] leading-7 text-[#686b72]">
-              Keep proof of Gibraltar presence structured, searchable and ready for internal review or a regulator request.
-            </p>
+    <div className="mx-auto max-w-[1320px]">
+      <div className="mb-7 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div className="max-w-2xl">
+          <div className="mb-2 flex items-center gap-2 text-xs font-medium text-[#6e6e73]">
+            <span>Compliance</span><ChevronRight className="h-3.5 w-3.5"/><span>Evidence</span>
           </div>
-
-          <div className="grid grid-cols-3 divide-x divide-[#dedfe3] border-y border-[#dedfe3] xl:grid-cols-1 xl:divide-x-0 xl:divide-y xl:border-x-0">
-            {[
-              ['05','records'],
-              ['01','needs review'],
-              ['02','dated'],
-            ].map(([value,label])=>(
-              <div key={label} className="px-4 py-4 xl:px-0 xl:py-3.5">
-                <div className="text-[26px] font-semibold tracking-[-0.04em] text-[#17181b]">{value}</div>
-                <div className="mt-1 text-[11px] font-medium uppercase tracking-[0.08em] text-[#8a8d94]">{label}</div>
-              </div>
-            ))}
-          </div>
+          <h2 className="text-[30px] font-semibold tracking-[-0.03em] text-[#1d1d1f]">Substance evidence</h2>
+          <p className="mt-2 max-w-xl text-sm leading-6 text-[#6e6e73]">
+            Keep the records that demonstrate your Gibraltar presence organised, reviewable and ready for a regulatory request.
+          </p>
         </div>
-
-        <div className="mt-7 flex flex-wrap items-center gap-2">
-          <button className="inline-flex h-10 items-center gap-2 rounded-full bg-[#111214] px-4 text-sm font-medium text-white transition hover:translate-y-[-1px] hover:bg-black">
-            <Upload className="h-4 w-4"/>Add evidence
-          </button>
-          <button className="h-10 rounded-full border border-[#d7d8dc] bg-white px-4 text-sm font-medium text-[#33353a] transition hover:border-[#bfc1c6] hover:bg-[#fafafa]">
+        <div className="flex shrink-0 items-center gap-2">
+          <button className="h-9 rounded-lg border border-[#d7d7da] bg-white px-3 text-sm font-medium text-[#343438] shadow-[0_1px_1px_rgba(0,0,0,.03)] transition hover:bg-[#f7f7f8]">
             Regulator request
           </button>
-          <span className="ml-auto hidden text-xs text-[#92949a] md:block">Last updated 5 Sep 2026</span>
-        </div>
-      </section>
-
-      <div className="mb-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_280px]">
-        <div className="rounded-2xl border border-[#e0e1e4] bg-[#f8f8f9] px-4 py-4">
-          <div className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#dedfe3] bg-white">
-              <ShieldCheck className="h-4 w-4 text-[#42454b]"/>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[#222327]">Evidence is recorded, not independently verified</p>
-              <p className="mt-1 max-w-3xl text-xs leading-5 text-[#74777e]">Review states reflect your team’s workflow. GibComply keeps the record, history and supporting document together.</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-2xl border border-[#dfe0e3] bg-white px-4 py-4">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#8a8d94]">Review coverage</div>
-          <div className="mt-2 flex items-end justify-between">
-            <span className="text-3xl font-semibold tracking-[-0.045em] text-[#17181b]">80%</span>
-            <span className="text-xs text-[#74777e]">4 of 5 reviewed</span>
-          </div>
-          <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[#ececef]"><div className="h-full w-4/5 rounded-full bg-[#17181b]"/></div>
+          <button className="inline-flex h-9 items-center gap-2 rounded-lg bg-[#1d1d1f] px-3.5 text-sm font-medium text-white shadow-[0_1px_1px_rgba(0,0,0,.08)] transition hover:bg-black">
+            <Upload className="h-4 w-4"/>Add evidence
+          </button>
         </div>
       </div>
 
-      <section className="overflow-hidden rounded-2xl border border-[#dddfe3] bg-white shadow-[0_8px_30px_rgba(17,18,20,0.045)]">
-        <div className="flex flex-col gap-4 border-b border-[#e5e6e9] px-5 pt-1 md:px-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="flex gap-7 overflow-x-auto">
+      <div className="mb-5 flex items-start gap-3 rounded-xl border border-[#e1e1e4] bg-[#fafafa] px-4 py-3.5">
+        <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white ring-1 ring-[#e1e1e4]">
+          <ShieldCheck className="h-4 w-4 text-[#5f6368]"/>
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-medium text-[#29292d]">Review state belongs to your team</p>
+          <p className="mt-0.5 text-xs leading-5 text-[#6e6e73]">GibComply records your evidence and review decisions; it does not verify the underlying documents.</p>
+        </div>
+        <button className="hidden text-xs font-medium text-[#3f3f44] hover:underline sm:block">Learn more</button>
+      </div>
+
+      <section className="overflow-hidden rounded-xl border border-[#dedee1] bg-white shadow-[0_1px_2px_rgba(0,0,0,.025)]">
+        <div className="border-b border-[#ececee] px-4 pt-4 md:px-5">
+          <div className="flex gap-6">
             {viewButton('all','All records',records.length)}
             {viewButton('review','Needs review',records.filter(r=>r.status!=='Reviewed').length)}
             {viewButton('expiring','With validity date',records.filter(r=>r.valid!=='Not set').length)}
           </div>
-          <div className="flex items-center gap-2 pb-3">
-            <button className="inline-flex h-9 items-center gap-2 rounded-full border border-[#d9dade] bg-white px-3 text-sm font-medium text-[#4c4f55] transition hover:bg-[#f7f7f8]"><Filter className="h-4 w-4"/>Filter</button>
-            <button className="inline-flex h-9 items-center gap-2 rounded-full border border-[#d9dade] bg-white px-3 text-sm font-medium text-[#4c4f55] transition hover:bg-[#f7f7f8]"><ArrowUpDown className="h-4 w-4"/>Sort</button>
-          </div>
         </div>
 
-        <div className="border-b border-[#e7e8eb] bg-[#fbfbfc] px-5 py-4 md:px-6">
-          <label className="relative block max-w-xl">
-            <Search className="pointer-events-none absolute left-0 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8b8e95]"/>
-            <input
-              value={query}
-              onChange={e=>setQuery(e.target.value)}
-              placeholder="Search by document, category, file or status"
-              className="h-9 w-full border-0 bg-transparent pl-6 pr-3 text-sm text-[#25262a] outline-none placeholder:text-[#9a9ca2]"
-            />
-            <span className="absolute inset-x-0 bottom-0 h-px bg-[#d9dade]"/>
-          </label>
+        <div className="border-b border-[#ececee] bg-[#fcfcfc] p-3 md:p-4">
+          <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
+            <label className="relative min-w-0 flex-1">
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8b8b90]"/>
+              <input
+                value={query}
+                onChange={e=>setQuery(e.target.value)}
+                placeholder="Search evidence"
+                className="h-9 w-full rounded-lg border border-[#d9d9dc] bg-white pl-9 pr-3 text-sm outline-none transition placeholder:text-[#9a9a9f] focus:border-[#8caed1] focus:ring-2 focus:ring-[#dce9f5]"
+              />
+            </label>
+            <div className="flex items-center gap-2">
+              <button className="inline-flex h-9 items-center gap-2 rounded-lg border border-[#d9d9dc] bg-white px-3 text-sm font-medium text-[#444448] transition hover:bg-[#f7f7f8]"><Filter className="h-4 w-4"/>Filter</button>
+              <button className="inline-flex h-9 items-center gap-2 rounded-lg border border-[#d9d9dc] bg-white px-3 text-sm font-medium text-[#444448] transition hover:bg-[#f7f7f8]"><ArrowUpDown className="h-4 w-4"/>Sort</button>
+              <button aria-label="More table actions" className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[#d9d9dc] bg-white text-[#55555a] transition hover:bg-[#f7f7f8]"><MoreHorizontal className="h-4 w-4"/></button>
+            </div>
+          </div>
 
           {selected.length>0&&(
-            <div className="mt-4 flex flex-wrap items-center gap-2 rounded-xl border border-[#d8d9dd] bg-white px-3 py-2 shadow-[0_1px_2px_rgba(0,0,0,.03)]">
-              <span className="text-xs font-semibold text-[#313338]">{selected.length} selected</span>
-              <span className="h-4 w-px bg-[#dedfe2]"/>
-              <button className="text-xs font-medium text-[#313338] hover:underline">Mark reviewed</button>
-              <button className="text-xs font-medium text-[#313338] hover:underline">Export</button>
-              <button onClick={()=>setSelected([])} className="ml-auto text-xs text-[#777a81] hover:text-[#1d1d1f]">Clear</button>
+            <div className="mt-3 flex flex-wrap items-center gap-2 rounded-lg border border-[#d9d9dc] bg-white px-3 py-2">
+              <span className="text-xs font-medium text-[#444448]">{selected.length} selected</span>
+              <span className="h-4 w-px bg-[#e1e1e4]"/>
+              <button className="text-xs font-medium text-[#343438] hover:underline">Mark reviewed</button>
+              <button className="text-xs font-medium text-[#343438] hover:underline">Export</button>
+              <button onClick={()=>setSelected([])} className="ml-auto text-xs text-[#6e6e73] hover:text-[#1d1d1f]">Clear</button>
             </div>
           )}
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[1020px] border-collapse text-left">
+          <table className="w-full min-w-[980px] border-collapse text-left">
             <thead>
-              <tr className="border-b border-[#e7e8eb] bg-white text-[10px] font-semibold uppercase tracking-[0.08em] text-[#8a8d94]">
-                <th className="w-11 px-5 py-3">
-                  <button onClick={toggleAll} aria-label="Select visible records" className={`flex h-4 w-4 items-center justify-center rounded-[4px] border transition ${allVisibleSelected?'border-[#111214] bg-[#111214] text-white':'border-[#c7c8cc] bg-white'}`}>
+              <tr className="border-b border-[#e7e7e9] bg-white text-[11px] font-medium uppercase tracking-[0.045em] text-[#76767b]">
+                <th className="w-11 px-4 py-3">
+                  <button onClick={toggleAll} aria-label="Select visible records" className={`flex h-4 w-4 items-center justify-center rounded border transition ${allVisibleSelected?'border-[#1d1d1f] bg-[#1d1d1f] text-white':'border-[#c8c8cc] bg-white'}`}>
                     {allVisibleSelected&&<Check className="h-3 w-3"/>}
                   </button>
                 </th>
@@ -312,7 +280,7 @@ function SubstanceView() {
                 <th className="px-4 py-3">Category</th>
                 <th className="px-4 py-3">Valid until</th>
                 <th className="px-4 py-3">Uploaded</th>
-                <th className="px-4 py-3">Review</th>
+                <th className="px-4 py-3">Review status</th>
                 <th className="w-12 px-4 py-3"/>
               </tr>
             </thead>
@@ -320,49 +288,45 @@ function SubstanceView() {
               {visible.map(r=>{
                 const checked=selected.includes(r.id);
                 return (
-                  <tr key={r.id} className={`group border-b border-[#ececef] last:border-0 transition duration-200 hover:bg-[#fafafa] ${checked?'bg-[#f6f6f7]':''}`}>
-                    <td className="px-5 py-4">
-                      <button onClick={()=>toggle(r.id)} aria-label={`Select ${r.document}`} className={`flex h-4 w-4 items-center justify-center rounded-[4px] border transition ${checked?'border-[#111214] bg-[#111214] text-white':'border-[#c7c8cc] bg-white'}`}>
+                  <tr key={r.id} className={`group border-b border-[#ededee] last:border-0 transition hover:bg-[#fafafa] ${checked?'bg-[#f7f7f8]':''}`}>
+                    <td className="px-4 py-3.5">
+                      <button onClick={()=>toggle(r.id)} aria-label={`Select ${r.document}`} className={`flex h-4 w-4 items-center justify-center rounded border transition ${checked?'border-[#1d1d1f] bg-[#1d1d1f] text-white':'border-[#c8c8cc] bg-white'}`}>
                         {checked&&<Check className="h-3 w-3"/>}
                       </button>
                     </td>
-                    <td className="px-2 py-4">
-                      <button className="block max-w-[420px] text-left">
-                        <span className="block truncate text-sm font-semibold text-[#242529] transition group-hover:text-black">{r.document}</span>
-                        <span className="mt-1 block truncate text-xs text-[#8a8d94]">{r.file}</span>
+                    <td className="px-2 py-3.5">
+                      <button className="block max-w-[390px] text-left">
+                        <span className="block truncate text-sm font-medium text-[#252529] group-hover:text-black">{r.document}</span>
+                        <span className="mt-0.5 block truncate text-xs text-[#838388]">{r.file}</span>
                       </button>
                     </td>
-                    <td className="px-4 py-4 text-sm text-[#5e6167]">{r.category}</td>
-                    <td className="px-4 py-4 text-sm text-[#5e6167]">{r.valid}</td>
-                    <td className="px-4 py-4 text-sm text-[#5e6167]">{r.uploaded}</td>
-                    <td className="px-4 py-4">
-                      <span className={`inline-flex items-center gap-2 text-xs font-medium ${r.status==='Reviewed'?'text-[#27643c]':'text-[#8b621a]'}`}>
-                        <span className={`h-2 w-2 rounded-full ${r.status==='Reviewed'?'bg-[#4f9a67]':'bg-[#c58b2c]'}`}/>
+                    <td className="px-4 py-3.5 text-sm text-[#55555a]">{r.category}</td>
+                    <td className="px-4 py-3.5 text-sm text-[#55555a]">{r.valid}</td>
+                    <td className="px-4 py-3.5 text-sm text-[#55555a]">{r.uploaded}</td>
+                    <td className="px-4 py-3.5">
+                      <span className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-1 text-xs font-medium ${r.status==='Reviewed'?'border-[#cfe5d6] bg-[#f1f8f3] text-[#25633a]':'border-[#ead9b5] bg-[#fff9ec] text-[#805b17]'}`}>
+                        <span className={`h-1.5 w-1.5 rounded-full ${r.status==='Reviewed'?'bg-[#3b8c56]':'bg-[#b8801d]'}`}/>
                         {r.status}
                       </span>
                     </td>
-                    <td className="px-4 py-4 text-right">
-                      <button aria-label={`Actions for ${r.document}`} className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[#777a81] opacity-50 transition hover:bg-[#efeff1] hover:text-[#1d1d1f] group-hover:opacity-100"><MoreHorizontal className="h-4 w-4"/></button>
+                    <td className="px-4 py-3.5 text-right">
+                      <button aria-label={`Actions for ${r.document}`} className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-[#6e6e73] opacity-60 transition hover:bg-[#eeeeef] hover:text-[#1d1d1f] group-hover:opacity-100"><MoreHorizontal className="h-4 w-4"/></button>
                     </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
-
           {visible.length===0&&(
-            <div className="px-6 py-16 text-center">
-              <p className="text-sm font-semibold text-[#303136]">No evidence in this view</p>
-              <p className="mt-1 text-xs text-[#83868d]">Try a different search or switch views.</p>
-            </div>
+            <div className="px-6 py-14 text-center"><p className="text-sm font-medium text-[#343438]">No evidence matches this view</p><p className="mt-1 text-xs text-[#7d7d82]">Try another search or saved view.</p></div>
           )}
         </div>
 
-        <div className="flex flex-col gap-2 bg-[#fbfbfc] px-5 py-3.5 text-xs text-[#777a81] sm:flex-row sm:items-center sm:justify-between md:px-6">
-          <span>{visible.length} of {records.length} records</span>
+        <div className="flex flex-col gap-2 border-t border-[#ececee] bg-[#fcfcfc] px-4 py-3 text-xs text-[#6e6e73] sm:flex-row sm:items-center sm:justify-between md:px-5">
+          <span>Showing {visible.length} of {records.length} evidence records</span>
           <div className="flex items-center gap-1">
-            <button disabled className="rounded-full border border-[#dedfe3] bg-white px-3 py-1.5 disabled:text-[#b6b8bd]">Previous</button>
-            <button disabled className="rounded-full border border-[#dedfe3] bg-white px-3 py-1.5 disabled:text-[#b6b8bd]">Next</button>
+            <button disabled className="rounded-md border border-[#dedee1] bg-white px-2.5 py-1.5 disabled:text-[#b4b4b8]">Previous</button>
+            <button disabled className="rounded-md border border-[#dedee1] bg-white px-2.5 py-1.5 disabled:text-[#b4b4b8]">Next</button>
           </div>
         </div>
       </section>
