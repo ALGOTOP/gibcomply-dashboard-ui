@@ -1,0 +1,41 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  :root {
+    --background: 220 16% 96%;
+    --foreground: 228 11% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 228 11% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 228 11% 9%;
+    --primary: 215 68% 28%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 228 16% 94%;
+    --secondary-foreground: 228 11% 9%;
+    --muted: 220 16% 96%;
+    --muted-foreground: 225 7% 45%;
+    --accent: 210 64% 95%;
+    --accent-foreground: 215 68% 28%;
+    --destructive: 0 74% 42%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 230 14% 91%;
+    --input: 230 14% 91%;
+    --ring: 215 68% 28%;
+    --sidebar-background: 235 22% 10%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 209 60% 76%;
+    --sidebar-primary-foreground: 235 22% 10%;
+    --sidebar-accent: 215 69% 20%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 215 69% 20%;
+    --sidebar-ring: 209 60% 76%;
+  }
+  body { @apply bg-gib-bg text-gib-text font-sans antialiased min-h-screen selection:bg-gib-brand selection:text-white; }
+  .font-mono, table, input[type='number'] { font-variant-numeric: tabular-nums; }
+}
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #F4F5F7; }
+::-webkit-scrollbar-thumb { background: #D4D4D8; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #A1A1AA; }

@@ -1,0 +1,1 @@
+import React from 'react'; export function ProvisionRef({children,label}:any){return <span className="font-mono text-xs text-gib-muted">{children??label??''}</span>} export function ProvisionRefRow({children}:any){return <>{children}</>}

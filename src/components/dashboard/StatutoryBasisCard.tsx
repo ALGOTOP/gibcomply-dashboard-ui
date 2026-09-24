@@ -1,0 +1,1 @@
+import React from 'react'; import { Card } from '../ui'; export function StatutoryBasisCard(){return <Card className="p-4"><h3 className="font-semibold">Statutory basis</h3><p className="mt-1 text-sm text-gib-muted">Gibraltar Gambling Act 2025 workspace tracking and evidence register.</p></Card>}

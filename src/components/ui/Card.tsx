@@ -1,0 +1,1 @@
+import React from 'react'; import { cn } from '@/lib/cn'; export function Card({children,className,...rest}:any){return <div className={cn('rounded-lg border border-gib-border bg-white',className)} {...rest}>{children}</div>}

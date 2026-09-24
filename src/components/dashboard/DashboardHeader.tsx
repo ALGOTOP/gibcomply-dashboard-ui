@@ -1,0 +1,1 @@
+import React from 'react'; export function DashboardHeader({fullName,tenantName}:any){return <div className="mb-5"><p className="text-sm text-gib-muted">{tenantName}</p><h2 className="text-2xl font-semibold text-gib-text">Welcome{fullName?`, ${fullName}`:''}</h2></div>}

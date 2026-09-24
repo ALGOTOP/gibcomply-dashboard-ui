@@ -1,0 +1,1 @@
+import React from 'react'; export function SearchInput({value,onChange,placeholder,autoFocus}:any){return <input autoFocus={autoFocus} value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder} className="h-9 w-full rounded-md border border-gib-border bg-white px-3 text-sm outline-none focus:ring-2 focus:ring-gib-brand/20"/>}

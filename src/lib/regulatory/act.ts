@@ -1,0 +1,1 @@
+export const ACT_IDENTITY={transitionalExpiryDate:'2027-03-31'} as const; export const PROVISIONS={REGULATED_INDIVIDUALS:{inForce:false}} as const; export function getDaysRemaining(iso:string){const a=new Date(iso+'T00:00:00').getTime(),b=new Date(); b.setHours(0,0,0,0); return Math.ceil((a-b.getTime())/86400000)}; export function isProvisionStale(){return false}

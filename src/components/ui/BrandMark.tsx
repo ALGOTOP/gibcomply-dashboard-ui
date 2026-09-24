@@ -1,0 +1,1 @@
+import React from 'react'; export const BrandMark=({size=18}:{size?:number})=><span style={{width:size,height:size}} className="inline-flex items-center justify-center rounded bg-current/10 font-semibold">G</span>;

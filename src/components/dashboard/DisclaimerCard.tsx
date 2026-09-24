@@ -1,0 +1,1 @@
+import React from 'react'; import { Card } from '../ui'; import { LEGAL_DISCLAIMER } from './constants'; export function DisclaimerCard(){return <Card className="p-4 text-sm text-gib-muted">{LEGAL_DISCLAIMER}</Card>}

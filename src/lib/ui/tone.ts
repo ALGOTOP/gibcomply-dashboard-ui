@@ -1,0 +1,1 @@
+export type Tone='neutral'|'positive'|'warning'|'danger'|'info'; export const TONE_CLASSES:any={neutral:'text-gib-muted',positive:'text-status-green',warning:'text-status-amber',danger:'text-status-red',info:'text-gib-brand'}; export function toneFor(){return 'neutral' as Tone;}

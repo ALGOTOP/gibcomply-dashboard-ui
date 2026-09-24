@@ -1,0 +1,1 @@
+export const CHECKLIST_DISMISSED_KEY='gibcomply-checklist-dismissed'; export const CHECKLIST_RESET_EVENT='gibcomply-checklist-reset'; export const LEGAL_DISCLAIMER='For operational compliance support only. This does not constitute legal advice.';
