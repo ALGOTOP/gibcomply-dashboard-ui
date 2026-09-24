@@ -162,22 +162,174 @@ function OutsourcingView() {
 }
 
 function SubstanceView() {
-  const rows = [
-    ['Office lease - Suite 4, Rosia Court · sample','Office Lease (s.40)','sample-lease.pdf','Reviewed'],
-    ['Gibraltar staff roster - Q3 2026 · sample','Employee Roster (s.40)','sample-roster.pdf','Reviewed'],
-    ['PAYE payroll summary - July and August 2026 · sample','Payroll Records (s.40)','sample-payroll.pdf','Awaiting review'],
-    ['Corporate tax return 2025/26 - filing acknowledgement · sample','Gibraltar Tax Filings','sample-tax.pdf','Reviewed'],
-    ['Local board minutes - Q3 2026 · sample','Local Board Minutes','sample-board.pdf','Reviewed'],
+  const [query,setQuery]=useState('');
+  const [view,setView]=useState<'all'|'review'|'expiring'>('all');
+  const [selected,setSelected]=useState<string[]>([]);
+
+  const records = [
+    { id:'lease', document:'Office lease - Suite 4, Rosia Court', category:'Office lease', file:'sample-lease.pdf', valid:'10 Mar 2028', uploaded:'5 Sep 2026', status:'Reviewed' },
+    { id:'roster', document:'Gibraltar staff roster - Q3 2026', category:'Employee roster', file:'sample-roster.pdf', valid:'Not set', uploaded:'5 Sep 2026', status:'Reviewed' },
+    { id:'payroll', document:'PAYE payroll summary - July and August 2026', category:'Payroll records', file:'sample-payroll.pdf', valid:'Not set', uploaded:'5 Sep 2026', status:'Awaiting review' },
+    { id:'tax', document:'Corporate tax return 2025/26 - filing acknowledgement', category:'Gibraltar tax filings', file:'sample-tax.pdf', valid:'Not set', uploaded:'5 Sep 2026', status:'Reviewed' },
+    { id:'board', document:'Local board minutes - Q3 2026', category:'Local board minutes', file:'sample-board.pdf', valid:'30 Sep 2027', uploaded:'4 Sep 2026', status:'Reviewed' },
   ];
+
+  const visible=records.filter(r=>{
+    const q=query.trim().toLowerCase();
+    const matches=!q||[r.document,r.category,r.file,r.status].some(v=>v.toLowerCase().includes(q));
+    const matchesView=view==='all'||(view==='review'&&r.status!=='Reviewed')||(view==='expiring'&&r.valid!=='Not set');
+    return matches&&matchesView;
+  });
+
+  const toggle=(id:string)=>setSelected(s=>s.includes(id)?s.filter(x=>x!==id):[...s,id]);
+  const allVisibleSelected=visible.length>0&&visible.every(r=>selected.includes(r.id));
+  const toggleAll=()=>setSelected(s=>allVisibleSelected?s.filter(id=>!visible.some(r=>r.id===id)):[...new Set([...s,...visible.map(r=>r.id)])]);
+
+  const viewButton=(id:'all'|'review'|'expiring',label:string,count:number)=>(
+    <button
+      onClick={()=>setView(id)}
+      className={`relative px-1 pb-3 text-sm font-medium transition ${view===id?'text-[#1d1d1f]':'text-[#6e6e73] hover:text-[#1d1d1f]'}`}
+    >
+      {label} <span className="ml-1 text-xs font-normal text-[#8a8a8f]">{count}</span>
+      {view===id&&<span className="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-[#1d1d1f]"/>}
+    </button>
+  );
+
   return (
-    <>
-      <SectionTitle subtitle="Records of presence in Gibraltar" title="Substance evidence"/>
-      <div className={`mb-5 flex flex-col gap-3 rounded-xl border p-4 sm:flex-row sm:items-center sm:justify-between ${divider} bg-white`}>
-        <div><p className="text-sm font-medium">Two-step sign-in is not set up</p><p className={`mt-0.5 text-xs ${secondary}`}>Add a second step to sign-in for stronger workspace security.</p></div>
-        <button className="shrink-0 rounded-lg border border-[#dedee1] px-3 py-2 text-xs font-medium">Set it up</button>
+    <div className="mx-auto max-w-[1320px]">
+      <div className="mb-7 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div className="max-w-2xl">
+          <div className="mb-2 flex items-center gap-2 text-xs font-medium text-[#6e6e73]">
+            <span>Compliance</span><ChevronRight className="h-3.5 w-3.5"/><span>Evidence</span>
+          </div>
+          <h2 className="text-[30px] font-semibold tracking-[-0.03em] text-[#1d1d1f]">Substance evidence</h2>
+          <p className="mt-2 max-w-xl text-sm leading-6 text-[#6e6e73]">
+            Keep the records that demonstrate your Gibraltar presence organised, reviewable and ready for a regulatory request.
+          </p>
+        </div>
+        <div className="flex shrink-0 items-center gap-2">
+          <button className="h-9 rounded-lg border border-[#d7d7da] bg-white px-3 text-sm font-medium text-[#343438] shadow-[0_1px_1px_rgba(0,0,0,.03)] transition hover:bg-[#f7f7f8]">
+            Regulator request
+          </button>
+          <button className="inline-flex h-9 items-center gap-2 rounded-lg bg-[#1d1d1f] px-3.5 text-sm font-medium text-white shadow-[0_1px_1px_rgba(0,0,0,.08)] transition hover:bg-black">
+            <Upload className="h-4 w-4"/>Add evidence
+          </button>
+        </div>
       </div>
-      <Panel title="Documents" action="Add evidence"><DataTable headers={['Document','Category','File','Review status']} rows={rows}/></Panel>
-    </>
+
+      <div className="mb-5 flex items-start gap-3 rounded-xl border border-[#e1e1e4] bg-[#fafafa] px-4 py-3.5">
+        <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white ring-1 ring-[#e1e1e4]">
+          <ShieldCheck className="h-4 w-4 text-[#5f6368]"/>
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-medium text-[#29292d]">Review state belongs to your team</p>
+          <p className="mt-0.5 text-xs leading-5 text-[#6e6e73]">GibComply records your evidence and review decisions; it does not verify the underlying documents.</p>
+        </div>
+        <button className="hidden text-xs font-medium text-[#3f3f44] hover:underline sm:block">Learn more</button>
+      </div>
+
+      <section className="overflow-hidden rounded-xl border border-[#dedee1] bg-white shadow-[0_1px_2px_rgba(0,0,0,.025)]">
+        <div className="border-b border-[#ececee] px-4 pt-4 md:px-5">
+          <div className="flex gap-6">
+            {viewButton('all','All records',records.length)}
+            {viewButton('review','Needs review',records.filter(r=>r.status!=='Reviewed').length)}
+            {viewButton('expiring','With validity date',records.filter(r=>r.valid!=='Not set').length)}
+          </div>
+        </div>
+
+        <div className="border-b border-[#ececee] bg-[#fcfcfc] p-3 md:p-4">
+          <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
+            <label className="relative min-w-0 flex-1">
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8b8b90]"/>
+              <input
+                value={query}
+                onChange={e=>setQuery(e.target.value)}
+                placeholder="Search evidence"
+                className="h-9 w-full rounded-lg border border-[#d9d9dc] bg-white pl-9 pr-3 text-sm outline-none transition placeholder:text-[#9a9a9f] focus:border-[#8caed1] focus:ring-2 focus:ring-[#dce9f5]"
+              />
+            </label>
+            <div className="flex items-center gap-2">
+              <button className="inline-flex h-9 items-center gap-2 rounded-lg border border-[#d9d9dc] bg-white px-3 text-sm font-medium text-[#444448] transition hover:bg-[#f7f7f8]"><Filter className="h-4 w-4"/>Filter</button>
+              <button className="inline-flex h-9 items-center gap-2 rounded-lg border border-[#d9d9dc] bg-white px-3 text-sm font-medium text-[#444448] transition hover:bg-[#f7f7f8]"><ArrowUpDown className="h-4 w-4"/>Sort</button>
+              <button aria-label="More table actions" className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[#d9d9dc] bg-white text-[#55555a] transition hover:bg-[#f7f7f8]"><MoreHorizontal className="h-4 w-4"/></button>
+            </div>
+          </div>
+
+          {selected.length>0&&(
+            <div className="mt-3 flex flex-wrap items-center gap-2 rounded-lg border border-[#d9d9dc] bg-white px-3 py-2">
+              <span className="text-xs font-medium text-[#444448]">{selected.length} selected</span>
+              <span className="h-4 w-px bg-[#e1e1e4]"/>
+              <button className="text-xs font-medium text-[#343438] hover:underline">Mark reviewed</button>
+              <button className="text-xs font-medium text-[#343438] hover:underline">Export</button>
+              <button onClick={()=>setSelected([])} className="ml-auto text-xs text-[#6e6e73] hover:text-[#1d1d1f]">Clear</button>
+            </div>
+          )}
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[980px] border-collapse text-left">
+            <thead>
+              <tr className="border-b border-[#e7e7e9] bg-white text-[11px] font-medium uppercase tracking-[0.045em] text-[#76767b]">
+                <th className="w-11 px-4 py-3">
+                  <button onClick={toggleAll} aria-label="Select visible records" className={`flex h-4 w-4 items-center justify-center rounded border transition ${allVisibleSelected?'border-[#1d1d1f] bg-[#1d1d1f] text-white':'border-[#c8c8cc] bg-white'}`}>
+                    {allVisibleSelected&&<Check className="h-3 w-3"/>}
+                  </button>
+                </th>
+                <th className="px-2 py-3">Document</th>
+                <th className="px-4 py-3">Category</th>
+                <th className="px-4 py-3">Valid until</th>
+                <th className="px-4 py-3">Uploaded</th>
+                <th className="px-4 py-3">Review status</th>
+                <th className="w-12 px-4 py-3"/>
+              </tr>
+            </thead>
+            <tbody>
+              {visible.map(r=>{
+                const checked=selected.includes(r.id);
+                return (
+                  <tr key={r.id} className={`group border-b border-[#ededee] last:border-0 transition hover:bg-[#fafafa] ${checked?'bg-[#f7f7f8]':''}`}>
+                    <td className="px-4 py-3.5">
+                      <button onClick={()=>toggle(r.id)} aria-label={`Select ${r.document}`} className={`flex h-4 w-4 items-center justify-center rounded border transition ${checked?'border-[#1d1d1f] bg-[#1d1d1f] text-white':'border-[#c8c8cc] bg-white'}`}>
+                        {checked&&<Check className="h-3 w-3"/>}
+                      </button>
+                    </td>
+                    <td className="px-2 py-3.5">
+                      <button className="block max-w-[390px] text-left">
+                        <span className="block truncate text-sm font-medium text-[#252529] group-hover:text-black">{r.document}</span>
+                        <span className="mt-0.5 block truncate text-xs text-[#838388]">{r.file}</span>
+                      </button>
+                    </td>
+                    <td className="px-4 py-3.5 text-sm text-[#55555a]">{r.category}</td>
+                    <td className="px-4 py-3.5 text-sm text-[#55555a]">{r.valid}</td>
+                    <td className="px-4 py-3.5 text-sm text-[#55555a]">{r.uploaded}</td>
+                    <td className="px-4 py-3.5">
+                      <span className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-1 text-xs font-medium ${r.status==='Reviewed'?'border-[#cfe5d6] bg-[#f1f8f3] text-[#25633a]':'border-[#ead9b5] bg-[#fff9ec] text-[#805b17]'}`}>
+                        <span className={`h-1.5 w-1.5 rounded-full ${r.status==='Reviewed'?'bg-[#3b8c56]':'bg-[#b8801d]'}`}/>
+                        {r.status}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3.5 text-right">
+                      <button aria-label={`Actions for ${r.document}`} className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-[#6e6e73] opacity-60 transition hover:bg-[#eeeeef] hover:text-[#1d1d1f] group-hover:opacity-100"><MoreHorizontal className="h-4 w-4"/></button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          {visible.length===0&&(
+            <div className="px-6 py-14 text-center"><p className="text-sm font-medium text-[#343438]">No evidence matches this view</p><p className="mt-1 text-xs text-[#7d7d82]">Try another search or saved view.</p></div>
+          )}
+        </div>
+
+        <div className="flex flex-col gap-2 border-t border-[#ececee] bg-[#fcfcfc] px-4 py-3 text-xs text-[#6e6e73] sm:flex-row sm:items-center sm:justify-between md:px-5">
+          <span>Showing {visible.length} of {records.length} evidence records</span>
+          <div className="flex items-center gap-1">
+            <button disabled className="rounded-md border border-[#dedee1] bg-white px-2.5 py-1.5 disabled:text-[#b4b4b8]">Previous</button>
+            <button disabled className="rounded-md border border-[#dedee1] bg-white px-2.5 py-1.5 disabled:text-[#b4b4b8]">Next</button>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
 
