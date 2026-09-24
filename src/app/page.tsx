@@ -6,7 +6,7 @@ import {
   Settings, Bell, Search, ChevronDown, CheckCircle2, Clock3, AlertTriangle,
   ShieldCheck, PanelLeftClose, PanelLeftOpen, Menu, X, PoundSterling, Network,
   FolderArchive, ListChecks, GitCompareArrows, ScanSearch, Library, MessageSquareText,
-  Filter, ArrowUpDown, MoreHorizontal, Check, Upload, ChevronRight
+  Filter, ArrowUpDown, MoreHorizontal, Check, Upload, ChevronRight, Moon, Sun
 } from 'lucide-react';
 
 type Tab =
@@ -557,6 +557,8 @@ function CalendarView() {
 
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_340px]">
         <section className="overflow-hidden rounded-2xl border border-[#dedee1] bg-white">
+          <div className="overflow-x-auto">
+            <div className="min-w-[700px]">
           <div className="grid grid-cols-7 border-b border-[#ececee] bg-[#fafafa] text-center text-[10px] font-semibold uppercase tracking-[0.08em] text-[#8a8a90]">
             {['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d=><div key={d} className="px-2 py-3">{d}</div>)}
           </div>
@@ -569,6 +571,8 @@ function CalendarView() {
                 </>}
               </button>
             ))}
+          </div>
+            </div>
           </div>
         </section>
 
@@ -827,13 +831,27 @@ export default function Page() {
   const [activeTab,setActiveTab]=useState<Tab>('Dashboard');
   const [sidebarCollapsed,setSidebarCollapsed]=useState(false);
   const [mobileOpen,setMobileOpen]=useState(false);
+  const [dark,setDark]=useState(false);
   
   useEffect(()=>{
     setSidebarCollapsed(window.localStorage.getItem('gibcomply-dashboard-sidebar')==='collapsed');
+    const savedTheme=window.localStorage.getItem('gibcomply-dashboard-theme');
+    const shouldUseDark=savedTheme ? savedTheme==='dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setDark(shouldUseDark);
+    document.documentElement.classList.toggle('dark',shouldUseDark);
   },[]);
 
   const toggleSidebar=()=>{
     setSidebarCollapsed(v=>{const next=!v; window.localStorage.setItem('gibcomply-dashboard-sidebar',next?'collapsed':'open'); return next;});
+  };
+
+  const toggleTheme=()=>{
+    setDark(current=>{
+      const next=!current;
+      window.localStorage.setItem('gibcomply-dashboard-theme',next?'dark':'light');
+      document.documentElement.classList.toggle('dark',next);
+      return next;
+    });
   };
 
   const views:Record<Tab,ReactNode>={
@@ -855,14 +873,14 @@ export default function Page() {
   };
 
   return (
-    <main className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f]">
+    <main className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] transition-colors duration-200">
       <div className="flex min-h-screen">
         {!sidebarCollapsed && <div className="hidden lg:block"><Sidebar activeTab={activeTab} setActiveTab={setActiveTab} onCollapse={toggleSidebar}/></div>}
 
         {mobileOpen && <div className="fixed inset-0 z-50 lg:hidden"><button aria-label="Close navigation overlay" onClick={()=>setMobileOpen(false)} className="absolute inset-0 bg-black/45 backdrop-blur-[2px]"/><div className="relative h-full w-fit shadow-2xl"><Sidebar mobile activeTab={activeTab} setActiveTab={setActiveTab} onClose={()=>setMobileOpen(false)}/></div></div>}
 
         <section className="min-w-0 flex-1">
-          <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-[#e5e5e7] bg-white/95 px-4 backdrop-blur md:px-6">
+          <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-[#e5e5e7] bg-white/95 px-3 backdrop-blur sm:px-4 md:px-6">
             <div className="flex min-w-0 items-center gap-2">
               <button onClick={()=>setMobileOpen(true)} className="rounded-lg p-2 transition hover:bg-black/5 lg:hidden" aria-label="Open navigation"><Menu className="h-5 w-5"/></button>
               {sidebarCollapsed && <button onClick={toggleSidebar} className="hidden rounded-lg p-2 transition hover:bg-black/5 lg:inline-flex" aria-label="Show sidebar" title="Show sidebar"><PanelLeftOpen className="h-5 w-5"/></button>}
@@ -871,12 +889,13 @@ export default function Page() {
 
             <div className="flex items-center gap-2">
               <button className="hidden h-9 items-center gap-2 rounded-lg border border-[#dedee1] bg-white px-3 text-xs text-[#6e6e73] transition hover:bg-[#f7f7f8] md:flex"><Search className="h-4 w-4"/>Search sections…</button>
+              <button onClick={toggleTheme} aria-pressed={dark} aria-label={dark?'Switch to light mode':'Switch to dark mode'} title={dark?'Light mode':'Dark mode'} className="relative flex h-9 w-9 items-center justify-center rounded-full border border-[#dedee1] bg-white transition hover:bg-[#f7f7f8]">{dark?<Sun className="h-4 w-4"/>:<Moon className="h-4 w-4"/>}</button>
               <button aria-label="Notifications" className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-[#dedee1] bg-white transition hover:bg-[#f7f7f8]"><Bell className="h-4 w-4"/><span className="absolute -right-1 -top-1 rounded-full bg-[#b42318] px-1 text-[9px] font-semibold text-white">9+</span></button>
-              <button className="flex h-9 items-center gap-2 rounded-lg border border-[#dedee1] bg-white px-2.5 text-xs font-medium transition hover:bg-[#f7f7f8]"><span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#ececee]">A</span><ChevronDown className={`h-3.5 w-3.5 ${secondary}`}/></button>
+              <button className="hidden h-9 items-center gap-2 rounded-lg border border-[#dedee1] bg-white px-2.5 text-xs font-medium transition hover:bg-[#f7f7f8] sm:flex"><span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#ececee]">A</span><ChevronDown className={`h-3.5 w-3.5 ${secondary}`}/></button>
             </div>
           </header>
 
-          <div className={`mx-auto w-full p-4 md:p-6 lg:p-7 ${sidebarCollapsed?'max-w-[1680px]':'max-w-[1480px]'}`}>
+          <div className={`mx-auto w-full p-3 sm:p-4 md:p-6 lg:p-7 ${sidebarCollapsed?'max-w-[1680px]':'max-w-[1480px]'}`}>
             {views[activeTab]}
           </div>
         </section>
